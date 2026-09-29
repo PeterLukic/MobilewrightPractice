@@ -1,0 +1,16 @@
+{
+  "name": "mobilewrightpractice",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "@mobilewright/test": "^0.0.60",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.4",
+    "mobilewright": "^0.0.60",
+    "playwright-bdd": "^9.2.1",
+    "typescript": "^7.0.2"
+  },
+  "scripts": {
+    "test": "mobilewright test"
+  }
+}
