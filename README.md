@@ -1,105 +1,88 @@
 # Mobilewright Practice
 
-Simple Android mobile automation project using **Mobilewright +
-TypeScript**.
+Android UI automation with TypeScript, Mobilewright, and Playwright BDD.
 
 ## Prerequisites
 
--   Node.js
--   Android Studio
--   Android Emulator running
--   ADB configured
--   Java 17
+- Node.js and npm
+- Android SDK tools and ADB configured
+- An Android emulator running or an Android phone connected by USB
+- Java configured for the Android tooling
 
-## 1. Start Android Emulator
+Install the project dependencies from the repository root:
 
-Start the **Pixel 8** emulator from Android Studio.
+```powershell
+npm install
+```
 
-Check that the device is available:
+Confirm that ADB can see your device:
 
-``` powershell
+```powershell
 adb devices
 ```
 
-You should see something like:
+It should list a device with the status `device` (for example, `emulator-5554    device`). The Mobilewright configuration targets Android and uses the app package `com.halooglasi.android`; make sure that app is available on the device.
 
-``` text
-emulator-5554    device
-```
+## Start the MobileCLI server
 
-## 2. Start MobileCLI Server
+In a separate PowerShell terminal at the repository root, run:
 
-Open the first terminal and run:
-
-``` powershell
+```powershell
 & ".\node_modules\@mobilenext\mobilecli-windows-amd64\mobilecli-windows-amd64.exe" server start --listen 127.0.0.1:12000
 ```
 
-Keep this terminal running.
+Keep this terminal open while running tests.
 
-## 3. Run Mobilewright Tests
+## Run BDD scenarios
 
-Open a second terminal and run:
+In another terminal at the repository root, generate the Playwright tests from the feature files, then run them:
 
-``` powershell
+```powershell
+npx bddgen
+npx playwright test
+```
+
+You can also run the two commands on one PowerShell line:
+
+```powershell
+npx bddgen; npx playwright test
+```
+
+The BDD configuration in `playwright.config.ts` reads `features/**/*.feature` and loads step definitions from `features/steps/**/*.ts` and `features/support/**/*.ts`. Add new scenarios and matching steps in those locations. Its reporter writes an HTML report without opening it automatically.
+
+To run a subset after generating the tests, use a Playwright filter, for example:
+
+```powershell
+npx bddgen
+npx playwright test --grep "Login with invalid credentials"
+```
+
+## Run direct Mobilewright tests
+
+The separate `mobilewright.config.ts` reads direct tests from `tests/fruit.spec.ts` and other files in `tests/`. Run that suite with:
+
+```powershell
 npx mobilewright test
 ```
 
-Run a specific test file:
+To run a specific direct test file:
 
-``` powershell
-npx mobilewright test tests/example.spec.ts
+```powershell
+npx mobilewright test tests/fruit.spec.ts
 ```
 
-Run a insector for locators
-``` powershell
+The `npm test` script also runs `mobilewright test`. It does not generate or run BDD scenarios.
+
+## Inspect elements and view reports
+
+Find Android locators with:
+
+```powershell
 npx mobilewright inspect
 ```
 
-## 4. Open HTML Report
+Open the Playwright BDD HTML report with:
 
-``` powershell
+```powershell
 npx playwright show-report
 ```
-
-## 5. Mobilewright Inspector
-
-To inspect Android elements and find locators:
-
-``` powershell
-npx mobilewright inspect
-```
-
-Example locators:
-
-``` typescript
-screen.getByText('Products');
-
-screen.getByLabel('View menu');
-
-screen.getByRole('image', { name: 'Product Image' });
-```
-
-## Example Test
-
-``` typescript
-import { test, expect } from '@mobilewright/test';
-
-test('open product', async ({ screen }) => {
-  await expect(
-    screen.getByText('Products')
-  ).toBeVisible();
-
-  await screen
-    .getByRole('image', { name: 'Product Image' })
-    .tap();
-});
-```
-
-## Current Setup
-
--   **Platform:** Android
--   **Emulator:** Pixel 8
--   **Test framework:** Mobilewright
--   **Language:** TypeScript
--   **Demo application:** Sauce Labs My Demo App
