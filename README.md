@@ -59,7 +59,7 @@ npx playwright test --grep "Login with invalid credentials"
 
 ## Run direct Mobilewright tests
 
-The separate `mobilewright.config.ts` reads direct tests from `tests/fruit.spec.ts` and other files in `tests/`. Run that suite with:
+The separate `mobilewright.config.ts` reads direct tests from `tests/`. Run that suite with:
 
 ```powershell
 npx mobilewright test
@@ -68,7 +68,7 @@ npx mobilewright test
 To run a specific direct test file:
 
 ```powershell
-npx mobilewright test tests/fruit.spec.ts
+npx mobilewright test tests/<your-test-file>.spec.ts
 ```
 
 The `npm test` script also runs `mobilewright test`. It does not generate or run BDD scenarios.
