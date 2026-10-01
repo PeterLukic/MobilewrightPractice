@@ -1,15 +1,6 @@
 {
-  "ui": {
-    "url": "https://opensource-demo.orangehrmlive.com/",
-    "username": "Admin",
-    "password": "admin123",
-    "newUser": {
-      "username": "Perica",
-      "password": "password123",
-      "confirmPassword": "password123"
-    }
-  },
-  "api": {
-    "petstoreSwaggerBaseUrl": "https://petstore.swagger.io/v2"
-  }
+  "bundleId": "com.halooglasi.android",
+  "platform": "android",  
+  "username": "halooglasi",
+  "password": "Halooglasi123"
 }

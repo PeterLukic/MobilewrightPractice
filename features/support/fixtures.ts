@@ -1,8 +1,10 @@
 import { test as base } from 'playwright-bdd';
 import { android } from 'mobilewright';
 import { PageManager } from '../../pageobjects/PageManager';
+import  data from '../..//utils/data.json';
 
-const bundleId = 'com.halooglasi.android';
+
+const bundleId = data.bundleId;
 
 export const test = base.extend<{ pages: PageManager }>({
   pages: async ({}, use) => {
