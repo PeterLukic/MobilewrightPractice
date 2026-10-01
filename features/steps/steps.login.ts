@@ -4,9 +4,6 @@ import { test } from '../support/fixtures';
 
 const {  When, Then } = createBdd(test);
 
-Then('I tap login button', async ({ pages }) => {
-  await pages.myProfile.tapLoginButton();
-});
 
 When(
   'I log in with email {string} and password {string}',
